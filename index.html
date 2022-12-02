@@ -4,24 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/style.css">
     <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./assets/style.css">
+
 </head>
-
 <body>
-   <header class="container-fluid bg-primary text-light p-2">
-    <h1>Weather Dashboard</h1>
-   </header>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
 
-
-   <div class="col-12 col-md-4 col-lg-3">
-    <h3>Search for a City</h3>
-    <form id="search-form" class="form w-100">
-        <input id="search-input" class="form-input w-100" type="text" placeholder="Search">
-        <button class="btn btn-info btn-block">Submit</button>
-    </form>
+    <div>
+        <h3>Search for a City</h3>
+        <form>
+            <input type="text" id="location" placeholder="Search">
+            <button id="btn">Submit</button>
+        </form>
     </div>
-
-
+    <script src="./assets/script.js"></script>
 </body>
 </html>
