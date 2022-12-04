@@ -1,5 +1,9 @@
 var cityName = document.querySelector("#location");
 var btn = document.querySelector("#btn");
+var cityEl = document.querySelector("#selected-city");
+var tempEl = document.querySelector("#temperature");
+var windEl = document.querySelector("#wind");
+var humidityEl = document.querySelector("#humidity");
 
 var responseText = document.getElementById('response-text');
 
@@ -10,9 +14,21 @@ var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q='+ city + '&
       console.log(response);
       return response.json();
   }).then(function (data){
-    console.log(data);
+    console.log(data)
+    var selectedCity = data.name
+    var temperature = data.main.temp
+    var wind = data.wind.speed
+    var humidity = data.main.humidity
+    cityEl.textContent = selectedCity 
+    tempEl.textContent = temperature
+    windEl.textContent = wind
+    humidityEl.textContent = humidity
   })
-}
+};
+
+
+
+
 
 
 btn.addEventListener("click", function(event){
