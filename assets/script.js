@@ -49,10 +49,14 @@ function setForecastDay(day, data) {
     var day1Temp = day1.main.temp
     var day1Wind = day1.wind.speed
     var day1Humidity = day1.main.humidity
+    var icon = day1.weather[0].icon
     var dateEl = document.querySelector("#date-" + day);
     var forecastTempEl = document.querySelector("#forecast-temperature-" + day);
     var forecastWindEl = document.querySelector("#forecast-wind-" + day);
     var forecastHumidityEl = document.querySelector("#forecast-humidity-" + day);
+    var imageForecastEl = document.querySelector("#forecast-icon-" + day);
+    console.log(imageForecastEl)
+    imageForecastEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
     dateEl.textContent = day1Date
     forecastTempEl.textContent = day1Temp
     forecastWindEl.textContent = day1Wind
