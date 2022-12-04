@@ -9,8 +9,6 @@ var imageEl = document.querySelector("#image");
 var searchList = JSON.parse(localStorage.getItem("saved-searches")) || [];
 
 
-
-
 function getWeatherApi(city) {
     var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=09b3203d19cbc88ceadb956f9cdd49dd&units=imperial';
     fetch(requestUrl)
@@ -46,7 +44,7 @@ function getForecastApi(city) {
 
 function setForecastDay(day, data) {
     var day1 = data.list[day]
-    var day1Date = day1.dt_txt
+    var day1Date = new Date(day1.dt_txt)
     var day1Temp = day1.main.temp
     var day1Wind = day1.wind.speed
     var day1Humidity = day1.main.humidity
@@ -58,7 +56,7 @@ function setForecastDay(day, data) {
     var imageForecastEl = document.querySelector("#forecast-icon-" + day);
     console.log(imageForecastEl)
     imageForecastEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
-    dateEl.textContent = day1Date
+    dateEl.textContent = day1Date.toLocaleDateString()
     forecastTempEl.textContent = day1Temp
     forecastWindEl.textContent = day1Wind
     forecastHumidityEl.textContent = day1Humidity
