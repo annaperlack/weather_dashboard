@@ -6,6 +6,7 @@ var windEl = document.querySelector("#wind");
 var humidityEl = document.querySelector("#humidity");
 var day1El = document.querySelector("#day-1");
 var imageEl = document.querySelector("#image");
+var searchList = JSON.parse(localStorage.getItem("saved-searches")) || [];
 
 
 
@@ -69,4 +70,6 @@ btn.addEventListener("click", function (event) {
     var city = cityName.value
     getWeatherApi(city);
     getForecastApi(city);
+    searchList.push(city)
+    localStorage.setItem("saved-searches", JSON.stringify(searchList));
 });
