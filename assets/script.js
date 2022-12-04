@@ -4,8 +4,12 @@ var cityEl = document.querySelector("#selected-city");
 var tempEl = document.querySelector("#temperature");
 var windEl = document.querySelector("#wind");
 var humidityEl = document.querySelector("#humidity");
+var dateEl = document.querySelector("#date");
+var forecastTempEl = document.querySelector ("#forecast-temperature");
+var forecastWindEl = document.querySelector ("#forecast-wind");
+var forecastHumidityEl = document.querySelector ("#forecast-humidity");
 
-var responseText = document.getElementById('response-text');
+
 
 function getWeatherApi(city) {
 var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q='+ city + '&appid=09b3203d19cbc88ceadb956f9cdd49dd&units=imperial';
@@ -25,12 +29,23 @@ var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q='+ city + '&
 };
 
 function getForecastApi(city) {
- var requestUrl ='https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=09b3203d19cbc88ceadb956f9cdd49dd';
+ var requestUrl ='https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=09b3203d19cbc88ceadb956f9cdd49dd&units=imperial';
     fetch(requestUrl)
     .then(function (response){
         return response.json();
     }).then(function (data){
         console.log(data)
+        var day1 = data.list[0]
+        var day1Date = day1.dt_txt
+        var day1Temp = day1.main.temp
+        var day1Wind = day1.wind.speed
+        var day1Humidity = day1.main.humidity
+        dateEl.textContent = day1Date
+        forecastTempEl.textContent = day1Temp
+        forecastWindEl.textContent = day1Wind
+        forecastHumidityEl.textContent = day1Humidity
+
+
     })
 };
 
