@@ -7,14 +7,12 @@ var humidityEl = document.querySelector("#humidity");
 
 var responseText = document.getElementById('response-text');
 
-function getApi(city) {
+function getWeatherApi(city) {
 var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q='+ city + '&appid=09b3203d19cbc88ceadb956f9cdd49dd&units=imperial';
   fetch(requestUrl)
     .then(function (response) {
-      console.log(response);
       return response.json();
   }).then(function (data){
-    console.log(data)
     var selectedCity = data.name
     var temperature = data.main.temp
     var wind = data.wind.speed
@@ -26,6 +24,15 @@ var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q='+ city + '&
   })
 };
 
+function getForecastApi(city) {
+ var requestUrl ='https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=09b3203d19cbc88ceadb956f9cdd49dd';
+    fetch(requestUrl)
+    .then(function (response){
+        return response.json();
+    }).then(function (data){
+        console.log(data)
+    })
+};
 
 
 
@@ -35,5 +42,6 @@ btn.addEventListener("click", function(event){
     event.preventDefault()
     var city = cityName.value
     console.log(city);
-    getApi(city);
+    getWeatherApi(city);
+    getForecastApi(city);
 });
