@@ -4,10 +4,8 @@ var cityEl = document.querySelector("#selected-city");
 var tempEl = document.querySelector("#temperature");
 var windEl = document.querySelector("#wind");
 var humidityEl = document.querySelector("#humidity");
-var dateEl = document.querySelector("#date");
-var forecastTempEl = document.querySelector ("#forecast-temperature");
-var forecastWindEl = document.querySelector ("#forecast-wind");
-var forecastHumidityEl = document.querySelector ("#forecast-humidity");
+var day1El = document.querySelector("#day-1");
+
 
 
 
@@ -34,22 +32,28 @@ function getForecastApi(city) {
     .then(function (response){
         return response.json();
     }).then(function (data){
-        console.log(data)
-        var day1 = data.list[0]
+        for(var i=0; i<5; i++){
+            setForecastDay(i, data)
+        }
+    })
+};
+
+function setForecastDay(day, data) {
+    var day1 = data.list[day]
         var day1Date = day1.dt_txt
         var day1Temp = day1.main.temp
         var day1Wind = day1.wind.speed
         var day1Humidity = day1.main.humidity
+        var dateEl = document.querySelector("#date-" + day);
+        var forecastTempEl = document.querySelector ("#forecast-temperature-" + day);
+        var forecastWindEl = document.querySelector ("#forecast-wind-" + day);
+        var forecastHumidityEl = document.querySelector ("#forecast-humidity-" + day);
         dateEl.textContent = day1Date
         forecastTempEl.textContent = day1Temp
         forecastWindEl.textContent = day1Wind
         forecastHumidityEl.textContent = day1Humidity
-
-
-    })
+        
 };
-
-
 
 
 
