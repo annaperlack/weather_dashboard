@@ -7,6 +7,7 @@ var humidityEl = document.querySelector("#humidity");
 var day1El = document.querySelector("#day-1");
 var imageEl = document.querySelector("#image");
 var searchList = JSON.parse(localStorage.getItem("saved-searches")) || [];
+var savedSearches = $("#saved-searches");
 
 
 function getWeatherApi(city) {
@@ -62,12 +63,37 @@ function setForecastDay(day, data) {
     forecastHumidityEl.textContent = day1Humidity
 };
 
+function getWeather(city) {
+    getWeatherApi(city);
+    getForecastApi(city);
+    searchList.unshift(city);
+    localStorage.setItem("saved-searches", JSON.stringify(searchList));
+};
+
+function populateSearch(){
+    var searchList = (JSON.parse(localStorage.getItem("saved-searches")) || []).slice(0,10);
+
+    savedSearches.empty();
+
+    for (var i =0; i < searchList.length; i++) {
+        var button = $("<button>");
+        button.button();
+        button.text(searchList[i]);
+        button.on("click",function(event){
+            var city = button.text();
+            getWeather(city);
+            console.log(city);
+            event.preventDefault();
+        })
+        savedSearches.append(button);
+    };
+};
 
 btn.addEventListener("click", function (event) {
     event.preventDefault()
     var city = cityName.value
-    getWeatherApi(city);
-    getForecastApi(city);
-    searchList.push(city)
-    localStorage.setItem("saved-searches", JSON.stringify(searchList));
+    getWeather(city);
+    populateSearch();
 });
+
+populateSearch();

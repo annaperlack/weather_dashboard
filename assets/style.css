@@ -5,6 +5,14 @@ header {
     text-align: center;
 }
 
+.city-search {
+    margin: 2rem;
+}
+
+.saved-searches {
+    background-color: lightgray;
+}
+
 #btn {
     background-color: blue;
     color: white;
