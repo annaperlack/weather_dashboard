@@ -1,0 +1,20 @@
+header {
+    color: white;
+    background-color: blue;
+    background-image: linear-gradient(to right, blue , purple);
+    text-align: center;
+}
+
+#btn {
+    background-color: blue;
+    color: white;
+    border-radius: 4px;
+}
+
+#current-weather{
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    justify-content: center;
+
+}
