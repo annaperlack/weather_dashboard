@@ -74,12 +74,13 @@ function getWeather(city) {
 
 };
 
-//getting data from local function and setting click event to get data
+//getting data from local function setting 
 function populateSearch(){
     var searchList = (JSON.parse(localStorage.getItem("saved-searches")) || []).slice(0,10);
 
     savedSearches.empty();
 
+//adding button for each searched city and adding click function to pull data
     for (var i =0; i < searchList.length; i++) {
         var button = $("<button>");
         button.button();
