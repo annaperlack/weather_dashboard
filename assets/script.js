@@ -1,3 +1,4 @@
+//variables
 var cityName = document.querySelector("#location");
 var btn = document.querySelector("#btn");
 var cityEl = document.querySelector("#selected-city");
@@ -9,7 +10,7 @@ var imageEl = document.querySelector("#image");
 var searchList = JSON.parse(localStorage.getItem("saved-searches")) || [];
 var savedSearches = $("#saved-searches");
 
-
+//fetching data from current weather API and setting text content
 function getWeatherApi(city) {
     var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=09b3203d19cbc88ceadb956f9cdd49dd&units=imperial';
     fetch(requestUrl)
@@ -26,23 +27,23 @@ function getWeatherApi(city) {
             windEl.textContent = wind
             humidityEl.textContent = humidity
             imageEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
-            console.log(data)
         })
 };
 
+//fetching data from 5 day forecast API
 function getForecastApi(city) {
     var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&appid=09b3203d19cbc88ceadb956f9cdd49dd&units=imperial';
     fetch(requestUrl)
         .then(function (response) {
             return response.json();
         }).then(function (data) {
-            console.log(data)
             for (var i = 0; i < 5; i++) {
                 setForecastDay(i, data)
             }
         })
 };
 
+//set variable and text content for 5 day forecast
 function setForecastDay(day, data) {
     var day1 = data.list[day]
     var day1Date = new Date(day1.dt_txt)
@@ -55,7 +56,6 @@ function setForecastDay(day, data) {
     var forecastWindEl = document.querySelector("#forecast-wind-" + day);
     var forecastHumidityEl = document.querySelector("#forecast-humidity-" + day);
     var imageForecastEl = document.querySelector("#forecast-icon-" + day);
-    console.log(imageForecastEl)
     imageForecastEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png'
     dateEl.textContent = day1Date.toLocaleDateString()
     forecastTempEl.textContent = day1Temp
@@ -63,6 +63,7 @@ function setForecastDay(day, data) {
     forecastHumidityEl.textContent = day1Humidity
 };
 
+//preventing same city to be stored more than once and setting data from local storage to page
 function getWeather(city) {
     getWeatherApi(city);
     getForecastApi(city);
@@ -73,6 +74,7 @@ function getWeather(city) {
 
 };
 
+//getting data from local function and setting click event to get data
 function populateSearch(){
     var searchList = (JSON.parse(localStorage.getItem("saved-searches")) || []).slice(0,10);
 
@@ -85,19 +87,18 @@ function populateSearch(){
         button.on("click",function(event){
             var city = event.target.innerHTML;
             getWeather(city);
-            console.log(event.target.innerHTML);
             event.preventDefault();
         })
         savedSearches.append(button);
     };
 };
 
+//adding event listener to button to pull data from API
 btn.addEventListener("click", function (event) {
     event.preventDefault()
     var city = cityName.value
     getWeather(city);
     populateSearch();
 });
-
 
 populateSearch();
