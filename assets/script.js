@@ -66,8 +66,11 @@ function setForecastDay(day, data) {
 function getWeather(city) {
     getWeatherApi(city);
     getForecastApi(city);
-    searchList.unshift(city);
-    localStorage.setItem("saved-searches", JSON.stringify(searchList));
+    if (!searchList.includes(city)) {
+        searchList.unshift(city);
+        localStorage.setItem("saved-searches", JSON.stringify(searchList));
+    };
+
 };
 
 function populateSearch(){
@@ -80,9 +83,9 @@ function populateSearch(){
         button.button();
         button.text(searchList[i]);
         button.on("click",function(event){
-            var city = button.text();
+            var city = event.target.innerHTML;
             getWeather(city);
-            console.log(city);
+            console.log(event.target.innerHTML);
             event.preventDefault();
         })
         savedSearches.append(button);
@@ -95,5 +98,6 @@ btn.addEventListener("click", function (event) {
     getWeather(city);
     populateSearch();
 });
+
 
 populateSearch();
